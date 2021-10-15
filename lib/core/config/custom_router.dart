@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socially/core/screens/screens.dart';
+import '../screens/screens.dart';
 
 class CustomRouter {
   static Route onGenerateRoute(RouteSettings settings) {
