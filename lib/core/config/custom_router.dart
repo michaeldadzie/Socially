@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:socially/core/screens/bottom_nav_bar.dart';
+import 'package:socially/feautures/authentication/presentation/pages/login_screen.dart';
 import '../screens/screens.dart';
 
 class CustomRouter {
@@ -11,10 +14,11 @@ class CustomRouter {
           builder: (_) => const Scaffold(),
         );
       case SplashScreen.routeName:
-        return MaterialPageRoute(
-          settings: const RouteSettings(name: SplashScreen.routeName),
-          builder: (_) => const SplashScreen(),
-        );
+        return SplashScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case BottomNavBar.routeName:
+        return BottomNavBar.route();
       default:
         return _errorRoute();
     }
@@ -24,11 +28,19 @@ class CustomRouter {
     return MaterialPageRoute(
       settings: const RouteSettings(name: '/error'),
       builder: (_) => Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Error'),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: Text(
+            'Error',
+            style: GoogleFonts.raleway(color: Colors.black),
+          ),
         ),
-        body: const Center(
-          child: Text('Something went wrong'),
+        body: Center(
+          child: Text('Something went wrong',
+              style: GoogleFonts.raleway(color: Colors.black, fontSize: 15)),
         ),
       ),
     );
