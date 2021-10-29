@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socially/core/screens/bottom_nav_bar.dart';
-import 'package:socially/feautures/authentication/presentation/pages/login_screen.dart';
+import 'package:socially/features/authentication/presentation/pages/login_screen.dart';
 import '../screens/screens.dart';
 
 class CustomRouter {
