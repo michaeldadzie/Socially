@@ -44,6 +44,7 @@ class Socially extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: Constants.lightTheme,
+          darkTheme: Constants.darkTheme,
           onGenerateRoute: CustomRouter.onGenerateRoute,
           initialRoute: SplashScreen.routeName,
         ),
