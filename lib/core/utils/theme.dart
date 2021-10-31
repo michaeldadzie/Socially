@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// ignore: avoid_classes_with_only_static_members
 class Constants {
   static String appName = "Socially";
 
@@ -12,14 +11,20 @@ class Constants {
   static Color tertiaryBlue = const Color.fromRGBO(37, 32, 91, 1);
   static Color primaryWhite = const Color.fromRGBO(247, 247, 247, 1);
 
+  static Color primaryGrey = Colors.grey.shade200;
+  static Color secondaryGrey = Colors.grey.shade900;
+  static Color tertiaryGrey = Colors.grey.shade50;
+
   static ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
+    // brightness: Brightness.light,
     backgroundColor: lightPrimary,
     primaryColor: lightPrimary,
-    accentColor: lightPrimary,
-    scaffoldBackgroundColor: primaryWhite,
-    focusColor: primaryBlue,
-    hintColor: tertiaryBlue,
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: lightPrimary),
+    scaffoldBackgroundColor: lightPrimary,
+    focusColor: darkPrimary,
+    hoverColor: primaryGrey,
+    hintColor: primaryGrey,
+    dividerColor: primaryGrey,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
@@ -28,13 +33,15 @@ class Constants {
   );
 
   static ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
+    // brightness: Brightness.dark,
     backgroundColor: darkPrimary,
     primaryColor: darkPrimary,
-    accentColor: darkPrimary,
-    scaffoldBackgroundColor: primaryWhite,
-    focusColor: primaryBlue,
-    hintColor: tertiaryBlue,
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: darkPrimary),
+    scaffoldBackgroundColor: darkPrimary,
+    focusColor: lightPrimary,
+    hoverColor: secondaryGrey,
+    hintColor: secondaryGrey,
+    dividerColor: tertiaryGrey,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
