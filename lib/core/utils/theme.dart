@@ -25,6 +25,7 @@ class Constants {
     hoverColor: primaryGrey,
     hintColor: primaryGrey,
     dividerColor: primaryGrey,
+    splashColor: lightPrimary,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
@@ -42,6 +43,7 @@ class Constants {
     hoverColor: secondaryGrey,
     hintColor: secondaryGrey,
     dividerColor: tertiaryGrey,
+    splashColor: darkPrimary,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
