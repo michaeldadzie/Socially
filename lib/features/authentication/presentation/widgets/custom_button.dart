@@ -23,10 +23,10 @@ class CustomButton extends StatelessWidget {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.only(
-            left: 30,
-            right: 30,
-            top: 20,
-            bottom: 20,
+            left: 20,
+            right: 20,
+            top: 15,
+            bottom: 15,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
