@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soulll.socially">
    <application
-        android:label="socially"
+        android:label="Socially"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
