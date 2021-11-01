@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:socially/core/screens/bottom_nav_bar.dart';
+import 'package:socially/core/nav/page/bottom_nav_screen.dart';
+import 'package:socially/core/screens/error_screen.dart';
 import 'package:socially/features/authentication/presentation/pages/login_screen.dart';
+import 'package:socially/features/authentication/presentation/pages/signup_screen.dart';
 import '../screens/screens.dart';
 
 class CustomRouter {
@@ -17,8 +18,10 @@ class CustomRouter {
         return SplashScreen.route();
       case LoginScreen.routeName:
         return LoginScreen.route();
-      case BottomNavBar.routeName:
-        return BottomNavBar.route();
+      case SignupScreen.routeName:
+        return SignupScreen.route();
+      case BottomNavScreen.routeName:
+        return BottomNavScreen.route();
       default:
         return _errorRoute();
     }
@@ -27,22 +30,7 @@ class CustomRouter {
   static Route _errorRoute() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: '/error'),
-      builder: (_) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: Text(
-            'Error',
-            style: GoogleFonts.raleway(color: Colors.black),
-          ),
-        ),
-        body: Center(
-          child: Text('Something went wrong',
-              style: GoogleFonts.raleway(color: Colors.black, fontSize: 15)),
-        ),
-      ),
+      builder: (_) => ErrorScreen(),
     );
   }
 }
