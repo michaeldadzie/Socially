@@ -5,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:socially/features/authentication/data/repositories/auth_repository.dart';
 import 'package:socially/features/authentication/presentation/cubit/login_cubit.dart';
 import 'package:socially/features/authentication/presentation/extension/form_extension.dart';
+import 'package:socially/features/authentication/presentation/pages/signup_screen.dart';
 import 'package:socially/features/authentication/presentation/utils/const.dart';
 import 'package:socially/features/authentication/presentation/widgets/custom_button.dart';
+import 'package:socially/features/authentication/presentation/widgets/error_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -50,20 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state.status == LoginStatus.error) {
               showDialog(
                 context: context,
-                builder: (context) => AlertDialog(
-                  backgroundColor: Theme.of(context).splashColor,
-                  title: Text(
-                    'Error',
-                    style: GoogleFonts.lato(
-                        color: Theme.of(context).focusColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  content: Text(
-                    state.failure.message,
-                    style:
-                        GoogleFonts.lato(color: Theme.of(context).focusColor),
-                  ),
-                ),
+                builder: (context) =>
+                    ErrorDialog(content: state.failure.message),
               );
             }
           },
@@ -196,7 +186,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   const SizedBox(width: 5),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () => Navigator.of(context)
+                                        .pushNamed(SignupScreen.routeName),
                                     child: Text(
                                       'Sign Up.',
                                       style: GoogleFonts.roboto(
