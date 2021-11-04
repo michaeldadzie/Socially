@@ -71,16 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Socially',
-                                style: GoogleFonts.aBeeZee(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).focusColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 30),
+                              // Text(
+                              //   'Socially',
+                              //   style: GoogleFonts.aBeeZee(
+                              //     fontSize: 30,
+                              //     fontWeight: FontWeight.bold,
+                              //     color: Theme.of(context).focusColor,
+                              //   ),
+                              //   textAlign: TextAlign.center,
+                              // ),
+                              // const SizedBox(height: 30),
                               SizedBox(
                                 height: 55,
                                 child: TextFormField(
