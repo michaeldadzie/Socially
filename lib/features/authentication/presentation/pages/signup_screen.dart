@@ -7,7 +7,7 @@ import 'package:socially/features/authentication/presentation/cubit/signup_cubit
 import 'package:socially/features/authentication/presentation/extension/form_extension.dart';
 import 'package:socially/features/authentication/presentation/utils/const.dart';
 import 'package:socially/features/authentication/presentation/widgets/custom_button.dart';
-import 'package:socially/features/authentication/presentation/widgets/error_dialog.dart';
+import 'package:socially/core/widgets/error_dialog.dart';
 
 class SignupScreen extends StatefulWidget {
   static const String routeName = '/signup';
