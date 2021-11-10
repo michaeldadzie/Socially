@@ -8,7 +8,7 @@ import 'package:socially/features/authentication/presentation/extension/form_ext
 import 'package:socially/features/authentication/presentation/pages/signup_screen.dart';
 import 'package:socially/features/authentication/presentation/utils/const.dart';
 import 'package:socially/features/authentication/presentation/widgets/custom_button.dart';
-import 'package:socially/features/authentication/presentation/widgets/error_dialog.dart';
+import 'package:socially/core/widgets/error_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
