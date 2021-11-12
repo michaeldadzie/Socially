@@ -16,6 +16,7 @@ class Constants {
   static Color tertiaryGrey = Colors.grey.shade50;
 
   static ThemeData lightTheme = ThemeData(
+    appBarTheme: AppBarTheme(backgroundColor: lightPrimary, elevation: 0),
     // brightness: Brightness.light,
     backgroundColor: lightPrimary,
     primaryColor: lightPrimary,
@@ -34,6 +35,7 @@ class Constants {
   );
 
   static ThemeData darkTheme = ThemeData(
+    appBarTheme: AppBarTheme(backgroundColor: darkPrimary, elevation: 0),
     // brightness: Brightness.dark,
     backgroundColor: darkPrimary,
     primaryColor: darkPrimary,
