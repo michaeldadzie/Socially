@@ -30,7 +30,7 @@ class AuthRepository extends BaseAuthRepository {
           email: email!, password: password!);
       final user = credential.user;
       _firebaseFirestore.collection(Paths.users).doc(user!.uid).set({
-        'user': username,
+        'username': username,
         'email': email,
         'followers': 0,
         'following': 0,
