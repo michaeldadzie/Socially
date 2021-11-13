@@ -31,6 +31,12 @@
 .pub/
 /build/
 .fvm/
+android/java_pid1660.hprof
+
+
+# Firebase Config related
+GoogleService-Info.xml
+google-services.json
 
 # Web related
 lib/generated_plugin_registrant.dart
