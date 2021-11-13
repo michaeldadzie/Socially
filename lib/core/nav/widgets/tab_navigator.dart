@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socially/core/config/custom_router.dart';
 import 'package:socially/core/nav/enums/bottom_nav_item.dart';
+import 'package:socially/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'package:socially/features/create/presentation/pages/create_screen.dart';
 import 'package:socially/features/feed/presentation/pages/feed_screen.dart';
 import 'package:socially/features/notifications/presentation/pages/notifications_screen.dart';
+import 'package:socially/features/profile/data/repositories/user_repository.dart';
+import 'package:socially/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:socially/features/profile/presentation/pages/profile_screen.dart';
 import 'package:socially/features/search/presentation/pages/search_screen.dart';
 
@@ -51,7 +55,14 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.notifications:
         return NotificationsScreen();
       case BottomNavItem.profile:
-        return ProfileScreen();
+        return BlocProvider<ProfileBloc>(
+          create: (_) => ProfileBloc(
+            authBloc: context.read<AuthBloc>(),
+            userRepository: context.read<UserRepository>(),
+          )..add(ProfileLoadUser(
+              userId: context.read<AuthBloc>().state.user!.uid)),
+          child: ProfileScreen(),
+        );
       default:
         return Scaffold();
     }
