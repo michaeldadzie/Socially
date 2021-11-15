@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:socially/features/authentication/data/models/failure_model.dart';
 import 'package:socially/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'package:socially/features/profile/data/models/user_model.dart';
-import 'package:socially/features/profile/data/repositories/user_repository.dart';
+import 'package:socially/features/profile/data/repositories/user/user_repository.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
