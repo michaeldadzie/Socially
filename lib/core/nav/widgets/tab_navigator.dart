@@ -6,7 +6,7 @@ import 'package:socially/features/authentication/presentation/bloc/auth/auth_blo
 import 'package:socially/features/create/presentation/pages/create_screen.dart';
 import 'package:socially/features/feed/presentation/pages/feed_screen.dart';
 import 'package:socially/features/notifications/presentation/pages/notifications_screen.dart';
-import 'package:socially/features/profile/data/repositories/user_repository.dart';
+import 'package:socially/features/profile/data/repositories/user/user_repository.dart';
 import 'package:socially/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:socially/features/profile/presentation/pages/profile_screen.dart';
 import 'package:socially/features/search/presentation/pages/search_screen.dart';
