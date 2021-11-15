@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:socially/features/authentication/data/config/paths.dart';
 import 'package:socially/features/profile/data/models/user_model.dart';
-import 'package:socially/features/profile/data/repositories/base_user_repository.dart';
+import 'package:socially/features/profile/data/repositories/user/base_user_repository.dart';
 
 class UserRepository extends BaseUserRepository {
   final FirebaseFirestore _firebaseFirestore;
