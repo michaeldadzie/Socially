@@ -20,26 +20,29 @@ class ProfileStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stats(count: posts, label: 'posts'),
-              Stats(count: followers, label: 'followers'),
-              Stats(count: following, label: 'following'),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: ProfileButton(
-              isCurrentUser: isCurrentUser,
-              isFollowing: isFollowing,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stats(count: posts, label: 'posts'),
+                Stats(count: followers, label: 'followers'),
+                Stats(count: following, label: 'following'),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ProfileButton(
+                isCurrentUser: isCurrentUser,
+                isFollowing: isFollowing,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
