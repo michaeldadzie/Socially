@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:socially/features/profile/presentation/pages/edit_profile_screen.dart';
 
 class ProfileButton extends StatelessWidget {
   final bool? isCurrentUser;
@@ -32,7 +33,10 @@ class ProfileButton extends StatelessWidget {
                 //   color: Color.fromRGBO(41, 170, 225, 1),
                 // ),
               ),
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).pushNamed(
+                EditProfileScreen.routeName,
+                arguments: EditProfileScreenArgs(context: context),
+              ),
               child: Text(
                 'Edit Profile',
                 style: GoogleFonts.lato(
