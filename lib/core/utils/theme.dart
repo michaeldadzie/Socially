@@ -15,9 +15,13 @@ class Constants {
   static Color secondaryGrey = Colors.grey.shade900;
   static Color tertiaryGrey = Colors.grey.shade50;
   static Color darkGrey = Colors.grey.shade600;
+  static Color profileGrey = Colors.grey.shade400;
 
   static ThemeData lightTheme = ThemeData(
-    appBarTheme: AppBarTheme(backgroundColor: lightPrimary, elevation: 0),
+    appBarTheme: AppBarTheme(
+        backgroundColor: lightPrimary,
+        elevation: 0,
+        iconTheme: IconThemeData(color: darkPrimary)),
     // brightness: Brightness.light,
     backgroundColor: lightPrimary,
     primaryColor: lightPrimary,
@@ -28,7 +32,7 @@ class Constants {
     hintColor: primaryGrey,
     dividerColor: primaryGrey,
     splashColor: lightPrimary,
-    shadowColor: primaryGrey,
+    shadowColor: profileGrey,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
@@ -37,7 +41,10 @@ class Constants {
   );
 
   static ThemeData darkTheme = ThemeData(
-    appBarTheme: AppBarTheme(backgroundColor: darkPrimary, elevation: 0),
+    appBarTheme: AppBarTheme(
+        backgroundColor: darkPrimary,
+        elevation: 0,
+        iconTheme: IconThemeData(color: lightPrimary)),
     // brightness: Brightness.dark,
     backgroundColor: darkPrimary,
     primaryColor: darkPrimary,
