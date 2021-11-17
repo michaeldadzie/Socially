@@ -5,6 +5,7 @@ class User extends Equatable {
   final String id;
   final String username;
   final String email;
+  final String name;
   final String profileImageUrl;
   final int followers;
   final int following;
@@ -14,6 +15,7 @@ class User extends Equatable {
     required this.id,
     required this.username,
     required this.email,
+    required this.name,
     required this.profileImageUrl,
     required this.followers,
     required this.following,
@@ -24,6 +26,7 @@ class User extends Equatable {
     id: '',
     username: '',
     email: '',
+    name: '',
     profileImageUrl: '',
     followers: 0,
     following: 0,
@@ -45,6 +48,7 @@ class User extends Equatable {
     String? id,
     String? username,
     String? email,
+    String? name,
     String? profileImageUrl,
     int? followers,
     int? following,
@@ -54,6 +58,7 @@ class User extends Equatable {
       id: id ?? this.id,
       username: username ?? this.username,
       email: email ?? this.email,
+      name: name ?? this.name,
       profileImageUrl: profileImageUrl ?? this.profileImageUrl,
       followers: followers ?? this.followers,
       following: following ?? this.following,
@@ -65,6 +70,7 @@ class User extends Equatable {
     return {
       'username': username,
       'email': email,
+      'name': name,
       'profileImageUrl': profileImageUrl,
       'followers': followers,
       'following': following,
@@ -95,6 +101,7 @@ class User extends Equatable {
         id: doc.id,
         username: data['username'] ?? '',
         email: data['email'] ?? '',
+        name: data['name'] ?? '',
         profileImageUrl: data['profileImageUrl'] ?? '',
         followers: (data['followers'] ?? 0).toInt(),
         following: (data['following'] ?? 0).toInt(),
