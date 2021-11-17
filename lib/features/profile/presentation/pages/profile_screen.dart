@@ -19,19 +19,25 @@ class ProfileScreen extends StatelessWidget {
         if (state.status == ProfileStatus.error) {
           showDialog(
             context: context,
-            builder: (context) => ErrorDialog(content: state.failure.message),
+            builder: (context) => ErrorDialog(
+              content: state.failure.message,
+            ),
           );
         }
       },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            // centerTitle: true,
-            title: Text(
-              state.user.username,
-              style: GoogleFonts.raleway(
+            titleSpacing: 0,
+            title: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                state.user.username,
+                style: GoogleFonts.raleway(
                   color: Theme.of(context).focusColor,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             actions: [
               if (state.isCurrentUser)
@@ -48,20 +54,16 @@ class ProfileScreen extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start, //Wrong place, fix it
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20,
-                        left: 20,
-                        right: 20,
-                      ),
-                      child: Row(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, //Wrong place, fix it
+                    children: [
+                      Row(
                         children: [
                           UserProfileImage(
-                            radius: 45,
+                            radius: 50,
                             profileImageUrl: state.user.profileImageUrl,
                           ),
                           ProfileStats(
@@ -73,16 +75,13 @@ class ProfileScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: ProfileInfo(
-                        username: state.user.username,
+                      const SizedBox(height: 20),
+                      ProfileInfo(
+                        name: state.user.name,
                         bio: state.user.bio,
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
