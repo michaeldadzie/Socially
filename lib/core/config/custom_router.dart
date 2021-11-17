@@ -3,6 +3,7 @@ import 'package:socially/core/nav/page/bottom_nav_screen.dart';
 import 'package:socially/core/screens/error_screen.dart';
 import 'package:socially/features/authentication/presentation/pages/login_screen.dart';
 import 'package:socially/features/authentication/presentation/pages/signup_screen.dart';
+import 'package:socially/features/profile/presentation/pages/edit_profile_screen.dart';
 import '../screens/screens.dart';
 
 class CustomRouter {
@@ -30,6 +31,9 @@ class CustomRouter {
   static Route onGenerateNestedRoute(RouteSettings settings) {
     print('NestedRoute: ${settings.name}');
     switch (settings.name) {
+      case EditProfileScreen.routeName:
+        return EditProfileScreen.route(
+            args: settings.arguments as EditProfileScreenArgs);
       default:
         return _errorRoute();
     }
