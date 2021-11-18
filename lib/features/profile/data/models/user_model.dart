@@ -87,6 +87,7 @@ class User extends Equatable {
   //     id: doc.id,
   //     username: doc['username'] ?? '',
   //     email: doc['email'] ?? '',
+  //     name: doc['name'],
   //     profileImageUrl: doc['profileImageUrl'] ?? '',
   //     followers: (doc['followers'] ?? 0).toInt(),
   //     following: (doc['following'] ?? 0).toInt(),
