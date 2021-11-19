@@ -44,7 +44,7 @@ class Socially extends StatelessWidget {
           create: (_) => StorageRepository(),
         ),
         RepositoryProvider<PostRepository>(
-          create: (_) => PostRepository(),
+          create: (_) => PostRepository(),,
         ),
       ],
       child: MultiBlocProvider(
