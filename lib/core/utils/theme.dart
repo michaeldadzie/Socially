@@ -16,6 +16,7 @@ class Constants {
   static Color tertiaryGrey = Colors.grey.shade50;
   static Color darkGrey = Colors.grey.shade600;
   static Color profileGrey = Colors.grey.shade400;
+  static Color postGrey = Colors.grey.shade600;
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
@@ -33,6 +34,8 @@ class Constants {
     dividerColor: primaryGrey,
     splashColor: lightPrimary,
     shadowColor: profileGrey,
+    errorColor: postGrey,
+    indicatorColor: primaryGrey,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
@@ -56,6 +59,8 @@ class Constants {
     dividerColor: tertiaryGrey,
     splashColor: darkPrimary,
     shadowColor: darkGrey,
+    errorColor: tertiaryGrey,
+    indicatorColor: darkGrey,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
