@@ -1,16 +1,65 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socially/core/widgets/error_dialog.dart';
 import 'package:socially/features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'package:socially/features/create/data/repositories/post_repository.dart';
+import 'package:socially/features/profile/data/repositories/user/user_repository.dart';
 import 'package:socially/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:socially/features/profile/presentation/widgets/post_view.dart';
 import 'package:socially/features/profile/presentation/widgets/profile_image.dart';
 import 'package:socially/features/profile/presentation/widgets/profile_info.dart';
 import 'package:socially/features/profile/presentation/widgets/profile_stats.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreenArgs {
+  final String userId;
+
+  const ProfileScreenArgs({required this.userId});
+}
+
+class ProfileScreen extends StatefulWidget {
+  static const String routeName = '/profile';
   const ProfileScreen({Key? key}) : super(key: key);
+
+  static Route route({required ProfileScreenArgs args}) {
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routeName),
+      builder: (context) => BlocProvider<ProfileBloc>(
+        create: (_) => ProfileBloc(
+          userRepository: context.read<UserRepository>(),
+          postRepository: context.read<PostRepository>(),
+          authBloc: context.read<AuthBloc>(),
+        )..add(
+            ProfileLoadUser(userId: args.userId),
+          ),
+        child: ProfileScreen(),
+      ),
+    );
+  }
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +100,30 @@ class ProfileScreen extends StatelessWidget {
                 )
             ],
           ),
-          body: CustomScrollView(
+          body: _buildBody(state),
+        );
+      },
+    );
+  }
+
+  Widget _buildBody(ProfileState state) {
+    switch (state.status) {
+      case ProfileStatus.loading:
+        return Center(
+          child: CircularProgressIndicator(color: Theme.of(context).focusColor),
+        );
+      default:
+        return RefreshIndicator(
+          backgroundColor: Theme.of(context).primaryColor,
+          color: Theme.of(context).focusColor,
+          onRefresh: () async {
+            context.read<ProfileBloc>().add(
+                  ProfileLoadUser(userId: state.user.id),
+                );
+          },
+          child: CustomScrollView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
@@ -69,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
                           ProfileStats(
                             isCurrentUser: state.isCurrentUser,
                             isFollowing: state.isFollowing,
-                            posts: 0, //state.posts.length
+                            posts: state.posts.length,
                             followers: state.user.followers,
                             following: state.user.following,
                           )
@@ -79,15 +151,63 @@ class ProfileScreen extends StatelessWidget {
                       ProfileInfo(
                         name: state.user.name,
                         bio: state.user.bio,
-                      )
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
-              )
+              ),
+              SliverToBoxAdapter(
+                child: TabBar(
+                  controller: _tabController,
+                  labelColor: Theme.of(context).focusColor,
+                  unselectedLabelColor: Theme.of(context).shadowColor,
+                  indicatorWeight: 3.0,
+                  onTap: (i) => context.read<ProfileBloc>().add(
+                        ProfileToggleGridView(isGridView: i == 0),
+                      ),
+                  tabs: [
+                    Tab(icon: Icon(Icons.grid_on, size: 28)),
+                    Tab(icon: Icon(Icons.list, size: 28))
+                  ],
+                ),
+              ),
+              state.isGridView
+                  ? SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 2,
+                        crossAxisSpacing: 2,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final post = state.posts[index];
+                          return GestureDetector(
+                            onTap: () {},
+                            child: CachedNetworkImage(
+                              imageUrl: post.imageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
+                        childCount: state.posts.length,
+                      ),
+                    )
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final post = state.posts[index];
+                          return PostView(
+                            post: post,
+                            isLiked: false,
+                          );
+                        },
+                        childCount: state.posts.length,
+                      ),
+                    ),
             ],
           ),
         );
-      },
-    );
+    }
   }
 }
