@@ -9,7 +9,8 @@ import 'package:socially/core/utils/theme.dart';
 import 'features/authentication/presentation/bloc/simple_bloc_observer.dart';
 import 'features/authentication/data/repositories/auth_repository.dart';
 import 'features/authentication/presentation/bloc/auth/auth_bloc.dart';
-import 'package:socially/features/profile/data/repositories/user/user_repository.dart';
+import 'features/profile/data/repositories/user/user_repository.dart';
+import 'features/create/data/repositories/post_repository.dart';
 import 'features/profile/data/repositories/storage/storage_repository.dart';
 import 'core/config/custom_router.dart';
 
@@ -41,6 +42,9 @@ class Socially extends StatelessWidget {
         ),
         RepositoryProvider<StorageRepository>(
           create: (_) => StorageRepository(),
+        ),
+        RepositoryProvider<PostRepository>(
+          create: (_) => PostRepository(),
         ),
       ],
       child: MultiBlocProvider(
