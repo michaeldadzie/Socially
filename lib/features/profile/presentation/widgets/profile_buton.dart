@@ -24,14 +24,14 @@ class ProfileButton extends StatelessWidget {
                   top: 12,
                   bottom: 12,
                 ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(2),
-                // ),
-                backgroundColor: const Color.fromRGBO(41, 170, 225, 1),
-                // side: const BorderSide(
-                //   width: 2,
-                //   color: Color.fromRGBO(41, 170, 225, 1),
-                // ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                backgroundColor: Theme.of(context).primaryColor,
+                side: BorderSide(
+                  width: 1,
+                  color: Colors.grey.shade300,
+                ),
               ),
               onPressed: () => Navigator.of(context).pushNamed(
                 EditProfileScreen.routeName,
@@ -42,7 +42,7 @@ class ProfileButton extends StatelessWidget {
                 style: GoogleFonts.lato(
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                  color: Theme.of(context).focusColor,
                 ),
               ),
             ),
@@ -57,16 +57,16 @@ class ProfileButton extends StatelessWidget {
                   top: 12,
                   bottom: 12,
                 ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(2),
-                // ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
                 backgroundColor: isFollowing!
-                    ? Colors.grey.shade300
+                    ? Theme.of(context).primaryColor
                     : const Color.fromRGBO(41, 170, 225, 1),
-                // side: const BorderSide(
-                //   width: 2,
-                //   color: Color.fromRGBO(41, 170, 225, 1),
-                // ),
+                side: BorderSide(
+                  width: 1,
+                  color: Colors.grey.shade300,
+                ),
               ),
               onPressed: () {},
               child: Text(
