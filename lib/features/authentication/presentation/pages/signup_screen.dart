@@ -8,6 +8,7 @@ import 'package:socially/features/authentication/presentation/extension/form_ext
 import 'package:socially/features/authentication/presentation/utils/const.dart';
 import 'package:socially/features/authentication/presentation/widgets/custom_button.dart';
 import 'package:socially/core/widgets/error_dialog.dart';
+import 'package:socially/features/authentication/presentation/widgets/custom_circular_progress_indicator.dart';
 
 class SignupScreen extends StatefulWidget {
   static const String routeName = '/signup';
@@ -179,14 +180,20 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                               ),
                               const SizedBox(height: 35),
-                              CustomButton(
-                                title: 'Sign Up',
-                                bordersideColor: Colors.blue,
-                                textColor: Colors.white,
-                                backgroundColor: Colors.blue,
-                                onPress: () => _submitForm(context,
-                                    state.status == SignupStatus.submitting),
-                              ),
+                              state.status == SignupStatus.submitting
+                                  ? const CustomCircularProgressIndicator()
+                                  : CustomButton(
+                                      title: 'Sign Up',
+                                      bordersideColor:
+                                          const Color.fromRGBO(41, 170, 225, 1),
+                                      textColor: Colors.white,
+                                      backgroundColor:
+                                          const Color.fromRGBO(41, 170, 225, 1),
+                                      onPress: () => _submitForm(
+                                          context,
+                                          state.status ==
+                                              SignupStatus.submitting),
+                                    ),
                             ],
                           ),
                         ),
