@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socially/features/authentication/data/repositories/auth_repository.dart';
 import 'package:socially/features/authentication/presentation/cubit/login_cubit.dart';
 import 'package:socially/features/authentication/presentation/extension/form_extension.dart';
@@ -9,6 +10,7 @@ import 'package:socially/features/authentication/presentation/pages/signup_scree
 import 'package:socially/features/authentication/presentation/utils/const.dart';
 import 'package:socially/features/authentication/presentation/widgets/custom_button.dart';
 import 'package:socially/core/widgets/error_dialog.dart';
+import 'package:socially/features/authentication/presentation/widgets/custom_circular_progress_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -67,22 +69,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          padding: EdgeInsets.only(left: 15.h, right: 15.h),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'Socially',
                                 style: GoogleFonts.aBeeZee(
-                                  fontSize: 30,
+                                  fontSize: 30.h,
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).focusColor,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: 30),
+                              SizedBox(height: 30.h),
                               SizedBox(
-                                height: 55,
+                                height: 55.h,
                                 child: TextFormField(
                                   controller: _email,
                                   keyboardType: TextInputType.emailAddress,
@@ -92,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fillColor: Theme.of(context).hintColor,
                                   ),
                                   style: GoogleFonts.lato(
-                                    fontSize: 17,
+                                    fontSize: 17.h,
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).focusColor,
                                   ),
@@ -108,9 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                               ),
-                              const SizedBox(height: 15),
+                              SizedBox(height: 15.h),
                               SizedBox(
-                                height: 55,
+                                height: 55.h,
                                 child: TextFormField(
                                   controller: _password,
                                   obscureText: !_passwordVisible!,
@@ -136,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   style: GoogleFonts.lato(
-                                    fontSize: 17,
+                                    fontSize: 17.h,
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).focusColor,
                                   ),
@@ -152,48 +154,55 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                               ),
-                              const SizedBox(height: 35),
-                              CustomButton(
-                                title: 'Log In',
-                                bordersideColor: Colors.blue,
-                                textColor: Colors.white,
-                                backgroundColor: Colors.blue,
-                                onPress: () => _submitForm(context,
-                                    state.status == LoginStatus.submitting),
-                              ),
+                              SizedBox(height: 35.h),
+                              state.status == LoginStatus.submitting
+                                  ? const CustomCircularProgressIndicator()
+                                  : CustomButton(
+                                      title: 'Log In',
+                                      bordersideColor:
+                                          const Color.fromRGBO(41, 170, 225, 1),
+                                      textColor: Colors.white,
+                                      backgroundColor:
+                                          const Color.fromRGBO(41, 170, 225, 1),
+                                      onPress: () => _submitForm(
+                                          context,
+                                          state.status ==
+                                              LoginStatus.submitting),
+                                    )
                             ],
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 20, left: 20, right: 20),
+                        padding: EdgeInsets.only(
+                            bottom: 20.h, left: 20.w, right: 20.w),
                         child: Column(
                           children: [
                             Divider(color: Theme.of(context).dividerColor),
                             Padding(
-                              padding: const EdgeInsets.only(top: 15),
+                              padding: EdgeInsets.only(top: 15.h),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'Don\'t have an account?',
                                     style: GoogleFonts.roboto(
-                                      fontSize: 13,
+                                      fontSize: 13.h,
                                       fontWeight: FontWeight.w400,
                                       color: Theme.of(context).focusColor,
                                     ),
                                   ),
-                                  const SizedBox(width: 5),
+                                  SizedBox(width: 5.w),
                                   GestureDetector(
                                     onTap: () => Navigator.of(context)
                                         .pushNamed(SignupScreen.routeName),
                                     child: Text(
                                       'Sign Up.',
                                       style: GoogleFonts.roboto(
-                                        fontSize: 13,
+                                        fontSize: 13.h,
                                         fontWeight: FontWeight.w700,
-                                        color: Color.fromRGBO(41, 170, 225, 1),
+                                        color: const Color.fromRGBO(
+                                            41, 170, 225, 1),
                                       ),
                                     ),
                                   ),
