@@ -42,10 +42,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield* _mapProfileToggleGridViewToState(event);
     } else if (event is ProfileUpdatePosts) {
       yield* _mapProfileUpdatePosts(event);
+    } else if (event is ProfileFollowUser) {
+      yield* _mapProfileFollowUserToSate();
+    } else if (event is ProfileUnfollowUser) {
+      yield* _mapProfileUnfollowUserToSate();
     }
   }
-
-// void _mapEventToState(ProfileEvent event, Emitter<>)
 
   Stream<ProfileState> _mapProfileLoadUserToState(
     ProfileLoadUser event,
@@ -54,6 +56,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     try {
       final user = await _userRepository.getUserWithId(userId: event.userId);
       final isCurrentUser = _authBloc.state.user?.uid == event.userId;
+
+      final isFollowing = await _userRepository.isFollowing(
+        userId: _authBloc.state.user!.uid,
+        otherUserId: event.userId,
+      );
 
       _postsSubscription?.cancel();
       _postsSubscription = _postRepository
@@ -66,6 +73,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield state.copyWith(
         user: user,
         isCurrentUser: isCurrentUser,
+        isFollowing: isFollowing,
         status: ProfileStatus.loaded,
       );
     } catch (err) {
@@ -84,5 +92,43 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Stream<ProfileState> _mapProfileUpdatePosts(ProfileUpdatePosts event) async* {
     yield state.copyWith(posts: event.posts);
+  }
+
+  Stream<ProfileState> _mapProfileFollowUserToSate() async* {
+    try {
+      _userRepository.followUser(
+        userId: _authBloc.state.user!.uid,
+        followUserId: state.user.id,
+      );
+      final updatedUser =
+          state.user.copyWith(followers: state.user.followers + 1);
+      yield state.copyWith(user: updatedUser, isFollowing: true);
+    } catch (err) {
+      yield state.copyWith(
+        status: ProfileStatus.error,
+        failure: const Failure(
+          message: 'Something went wrong! Please try again',
+        ),
+      );
+    }
+  }
+
+  Stream<ProfileState> _mapProfileUnfollowUserToSate() async* {
+    try {
+      _userRepository.unfollowUser(
+        userId: _authBloc.state.user!.uid,
+        unfollowUserId: state.user.id,
+      );
+      final updatedUser =
+          state.user.copyWith(followers: state.user.followers - 1);
+      yield state.copyWith(user: updatedUser, isFollowing: false);
+    } catch (err) {
+      yield state.copyWith(
+        status: ProfileStatus.error,
+        failure: const Failure(
+          message: 'Something went wrong! Please try again',
+        ),
+      );
+    }
   }
 }
