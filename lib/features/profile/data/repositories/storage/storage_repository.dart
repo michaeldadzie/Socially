@@ -43,7 +43,8 @@ class StorageRepository extends BaseStorageRepository {
 
   @override
   Future<String> uploadPostImage({required File image}) async {
-    final imageId = Uuid().v4;
+    final imageId = const Uuid().v4();
+
     final downloadUrl = await _uploadImage(
       image: image,
       ref: 'images/posts/post_$imageId.jpg',
