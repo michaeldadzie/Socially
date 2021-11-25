@@ -36,7 +36,7 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Stream<List<Future<Comment>>> getPostomments({required String postId}) {
+  Stream<List<Future<Comment>>> getPostComments({required String postId}) {
     return _firebaseFirestore
         .collection(Paths.comments)
         .doc(postId)
