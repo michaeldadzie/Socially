@@ -39,6 +39,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       final author = User.empty.copyWith(id: _authBloc.state.user!.uid);
       final postImageUrl =
           await _storageRepository.uploadPostImage(image: state.postImage!);
+
       final post = Post(
         author: author,
         imageUrl: postImageUrl,
@@ -53,7 +54,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       emit(
         state.copyWith(
           status: CreatePostStatus.error,
-          failure: const Failure(message: 'We were unable to create your post'),
+          failure: const Failure(message: 'We were unable to share your post'),
         ),
       );
     }
