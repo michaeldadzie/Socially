@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socially/core/screens/screens.dart';
+import 'package:socially/core/utils/screen_sizes.dart';
 import 'package:socially/core/utils/theme.dart';
 import 'features/authentication/presentation/bloc/simple_bloc_observer.dart';
 import 'features/authentication/data/repositories/auth_repository.dart';
@@ -55,12 +57,18 @@ class Socially extends StatelessWidget {
             ),
           )
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: Constants.lightTheme,
-          darkTheme: Constants.darkTheme,
-          onGenerateRoute: CustomRouter.onGenerateRoute,
-          initialRoute: SplashScreen.routeName,
+        child: ScreenUtilInit(
+          designSize:
+              Size(MyScreenSizes.screenWidth, MyScreenSizes.screenHeight),
+          builder: () {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: Constants.lightTheme,
+              darkTheme: Constants.darkTheme,
+              onGenerateRoute: CustomRouter.onGenerateRoute,
+              initialRoute: SplashScreen.routeName,
+            );
+          },
         ),
       ),
     );
