@@ -78,14 +78,15 @@ class EditProfileScreen extends StatelessWidget {
               ),
               actions: [
                 state.status == EditProfileStatus.submmiting
-                    ? const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Center(
                           child: SizedBox(
                             width: 13,
                             height: 13,
                             child: CircularProgressIndicator(
-                              color: Color.fromRGBO(41, 170, 225, 1),
+                              strokeWidth: 2,
+                              color: Theme.of(context).focusColor,
                             ),
                           ),
                         ),
