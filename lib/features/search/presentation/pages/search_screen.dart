@@ -30,45 +30,47 @@ class _SearchScreenState extends State<SearchScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: TextField(
-            controller: _controller,
-            keyboardType: TextInputType.name,
-            // onFieldSubmitted: (_) => node.unfocus(),
-            decoration: textFormFieldDecoration.copyWith(
-              hintText: 'Search',
-              fillColor: Theme.of(context).hintColor,
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.grey.shade500,
-              ),
-              hintStyle: GoogleFonts.lato(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey.shade500,
-              ),
-              suffixIcon: IconButton(
-                onPressed: () {
-                  context.read<SearchCubit>().clearSearch();
-                  _controller.clear();
-                },
-                icon: Icon(
-                  Icons.clear,
-                  color: Theme.of(context).focusColor,
+          title: SizedBox(
+            height: 51,
+            child: TextField(
+              controller: _controller,
+              keyboardType: TextInputType.name,
+              decoration: textFormFieldDecoration.copyWith(
+                hintText: 'Search',
+                fillColor: Theme.of(context).hintColor,
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.grey.shade500,
+                ),
+                hintStyle: GoogleFonts.lato(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey.shade500,
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    context.read<SearchCubit>().clearSearch();
+                    _controller.clear();
+                  },
+                  icon: Icon(
+                    Icons.clear,
+                    color: Theme.of(context).focusColor,
+                  ),
                 ),
               ),
+              style: GoogleFonts.lato(
+                fontSize: 17,
+                fontWeight: FontWeight.w400,
+                color: Theme.of(context).focusColor,
+              ),
+              textInputAction: TextInputAction.search,
+              textAlignVertical: TextAlignVertical.center,
+              onSubmitted: (value) {
+                if (value.trim().isNotEmpty) {
+                  context.read<SearchCubit>().searchUsers(value.trim());
+                }
+              },
             ),
-            style: GoogleFonts.lato(
-              fontSize: 17,
-              fontWeight: FontWeight.w400,
-              color: Theme.of(context).focusColor,
-            ),
-            textInputAction: TextInputAction.search,
-            textAlignVertical: TextAlignVertical.center,
-            onSubmitted: (value) {
-              if (value.trim().isNotEmpty) {
-                context.read<SearchCubit>().searchUsers(value.trim());
-              }
-            },
           ),
         ),
         body: BlocBuilder<SearchCubit, SearchState>(
@@ -84,28 +86,31 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               case SearchStatus.loaded:
                 return state.users.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: state.users.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final user = state.users[index];
-                          return ListTile(
-                            leading: UserProfileImage(
-                              radius: 22,
-                              profileImageUrl: user.profileImageUrl,
-                            ),
-                            title: Text(
-                              user.username,
-                              style: GoogleFonts.lato(
-                                color: Theme.of(context).focusColor,
-                                fontSize: 16,
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: ListView.builder(
+                          itemCount: state.users.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final user = state.users[index];
+                            return ListTile(
+                              leading: UserProfileImage(
+                                radius: 22,
+                                profileImageUrl: user.profileImageUrl,
                               ),
-                            ),
-                            onTap: () => Navigator.of(context).pushNamed(
-                              ProfileScreen.routeName,
-                              arguments: ProfileScreenArgs(userId: user.id),
-                            ),
-                          );
-                        },
+                              title: Text(
+                                user.username,
+                                style: GoogleFonts.lato(
+                                  color: Theme.of(context).focusColor,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              onTap: () => Navigator.of(context).pushNamed(
+                                ProfileScreen.routeName,
+                                arguments: ProfileScreenArgs(userId: user.id),
+                              ),
+                            );
+                          },
+                        ),
                       )
                     : const CenteredText(text: 'No users found');
               default:
