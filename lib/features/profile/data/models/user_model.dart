@@ -79,19 +79,19 @@ class User extends Equatable {
   }
 
   // factory User.fromDocument(DocumentSnapshot doc) {
-  //   if (doc.data() != null) {
-  //     return User.empty;
-  //   }
-  //   // final data = doc.data();
+  //   // if (doc.data() != null) {
+  //   //   return User.empty;
+  //   // }
+  //   final data = doc.data() as Map<String, dynamic>;
   //   return User(
   //     id: doc.id,
-  //     username: doc['username'] ?? '',
-  //     email: doc['email'] ?? '',
-  //     name: doc['name'],
-  //     profileImageUrl: doc['profileImageUrl'] ?? '',
-  //     followers: (doc['followers'] ?? 0).toInt(),
-  //     following: (doc['following'] ?? 0).toInt(),
-  //     bio: doc['bio'] ?? '',
+  //     username: data['username'] ?? '',
+  //     email: data['email'] ?? '',
+  //     name: data['name'],
+  //     profileImageUrl: data['profileImageUrl'] ?? '',
+  //     followers: (data['followers'] ?? 0).toInt(),
+  //     following: (data['following'] ?? 0).toInt(),
+  //     bio: data['bio'] ?? '',
   //   );
   // }
 
