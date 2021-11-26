@@ -3,15 +3,15 @@ import 'package:socially/features/profile/presentation/widgets/profile_buton.dar
 import 'package:socially/features/profile/presentation/widgets/stats.dart';
 
 class ProfileStats extends StatelessWidget {
-  final bool? isCurrentUser;
-  final bool? isFollowing;
+  final bool isCurrentUser;
+  final bool isFollowing;
   final int posts;
   final int followers;
   final int following;
   const ProfileStats({
     Key? key,
-    this.isCurrentUser,
-    this.isFollowing,
+    required this.isCurrentUser,
+    required this.isFollowing,
     required this.posts,
     required this.followers,
     required this.following,

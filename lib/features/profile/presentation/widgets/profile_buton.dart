@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socially/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:socially/features/profile/presentation/pages/edit_profile_screen.dart';
 
 class ProfileButton extends StatelessWidget {
-  final bool? isCurrentUser;
-  final bool? isFollowing;
+  final bool isCurrentUser;
+  final bool isFollowing;
   const ProfileButton({
     Key? key,
-    this.isCurrentUser,
-    this.isFollowing,
+    required this.isCurrentUser,
+    required this.isFollowing,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return isCurrentUser!
+    return isCurrentUser
         ? Container(
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
@@ -60,7 +62,7 @@ class ProfileButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                backgroundColor: isFollowing!
+                backgroundColor: isFollowing
                     ? Theme.of(context).primaryColor
                     : const Color.fromRGBO(41, 170, 225, 1),
                 side: BorderSide(
@@ -68,9 +70,11 @@ class ProfileButton extends StatelessWidget {
                   color: Colors.grey.shade300,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () => isFollowing
+                  ? context.read<ProfileBloc>().add(ProfileUnfollowUser())
+                  : context.read<ProfileBloc>().add(ProfileFollowUser()),
               child: Text(
-                isFollowing! ? 'Unfollow' : 'Follow',
+                isFollowing ? 'Unfollow' : 'Follow',
                 style: GoogleFonts.lato(
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
