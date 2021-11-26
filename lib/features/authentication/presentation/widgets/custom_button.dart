@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   final String? title;
@@ -18,22 +19,22 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width.h,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 15,
-            bottom: 15,
+          padding: EdgeInsets.only(
+            left: 20.w,
+            right: 20.w,
+            top: 15.h,
+            bottom: 15.h,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.h),
           ),
           backgroundColor: backgroundColor,
           side: BorderSide(
-            width: 2,
+            width: 2.h,
             color: bordersideColor,
           ),
         ),
@@ -41,7 +42,7 @@ class CustomButton extends StatelessWidget {
         child: Text(
           title!,
           style: GoogleFonts.raleway(
-            fontSize: 17,
+            fontSize: 17.h,
             fontWeight: FontWeight.w500,
             color: textColor,
           ),
