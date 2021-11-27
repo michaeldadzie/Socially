@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socially/core/screens/screens.dart';
-import 'package:socially/core/utils/screen_sizes.dart';
-import 'package:socially/core/utils/theme.dart';
+import 'core/screens/screens.dart';
+import 'core/utils/screen_sizes.dart';
+import 'core/utils/theme.dart';
+import 'core/config/custom_router.dart';
 import 'features/authentication/presentation/bloc/simple_bloc_observer.dart';
 import 'features/authentication/data/repositories/auth_repository.dart';
 import 'features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'features/profile/data/repositories/user/user_repository.dart';
 import 'features/create/data/repositories/post_repository.dart';
 import 'features/profile/data/repositories/storage/storage_repository.dart';
-import 'core/config/custom_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
