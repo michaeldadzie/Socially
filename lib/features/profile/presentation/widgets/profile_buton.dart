@@ -16,7 +16,7 @@ class ProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isCurrentUser
-        ? Container(
+        ? SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
@@ -49,7 +49,7 @@ class ProfileButton extends StatelessWidget {
               ),
             ),
           )
-        : Container(
+        : SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
@@ -78,7 +78,7 @@ class ProfileButton extends StatelessWidget {
                 style: GoogleFonts.lato(
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                  color: Theme.of(context).focusColor,
                 ),
               ),
             ),
