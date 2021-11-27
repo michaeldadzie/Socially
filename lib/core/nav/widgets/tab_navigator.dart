@@ -6,6 +6,7 @@ import 'package:socially/features/authentication/presentation/bloc/auth/auth_blo
 import 'package:socially/features/create/data/repositories/post_repository.dart';
 import 'package:socially/features/create/presentation/cubit/create_post_cubit.dart';
 import 'package:socially/features/create/presentation/pages/create_screen.dart';
+import 'package:socially/features/feed/presentation/bloc/feed_bloc.dart';
 import 'package:socially/features/feed/presentation/pages/feed_screen.dart';
 import 'package:socially/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:socially/features/profile/data/repositories/storage/storage_repository.dart';
@@ -51,7 +52,13 @@ class TabNavigator extends StatelessWidget {
   Widget _getScreen(BuildContext context, BottomNavItem? item) {
     switch (item) {
       case BottomNavItem.feed:
-        return FeedScreen();
+        return BlocProvider<FeedBloc>(
+          create: (context) => FeedBloc(
+            postRepository: context.read<PostRepository>(),
+            authBloc: context.read<AuthBloc>(),
+          )..add(FeedFetchPosts()),
+          child: FeedScreen(),
+        );
       case BottomNavItem.search:
         return BlocProvider<SearchCubit>(
           create: (context) => SearchCubit(
@@ -81,7 +88,7 @@ class TabNavigator extends StatelessWidget {
           child: ProfileScreen(),
         );
       default:
-        return Scaffold();
+        return const Scaffold();
     }
   }
 }
