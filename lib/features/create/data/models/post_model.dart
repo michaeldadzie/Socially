@@ -68,47 +68,46 @@ class Post extends Equatable {
     };
   }
 
-  // static Future<Post> fromDocument(DocumentSnapshot? doc) async {
-  //   if (doc == null) return null;
-  //   // final data = doc.data();
-  //   final authorRef = doc.get('author') as DocumentReference?;
-  //   if (authorRef != null) {
-  //     final authorDoc =
-  //         await authorRef.get() as DocumentSnapshot<Map<String, dynamic>>;
-  //     if (authorDoc.exists) {
-  //       return Post(
-  //         id: doc.id,
-  //         author: User.fromDocument(authorDoc),
-  //         imageUrl: doc.get('imageUrl') ?? '',
-  //         caption: doc.get('caption') ?? '',
-  //         likes: (doc.get('likes') ?? 0).toInt(),
-  //         date: (doc.get('date') as Timestamp).toDate(),
-  //       );
-  //     }
-  //     return null;
-  //   }
-  // }
-
-  static Future<Post> fromDocument(
-      DocumentSnapshot<Map<String, dynamic>> doc) async {
+  static Future<Post> fromDocument(DocumentSnapshot doc) async {
+    final data = doc.data() as Map<String, dynamic>;
     final authorRef = doc.get('author') as DocumentReference?;
     if (authorRef != null) {
       final authorDoc =
           await authorRef.get() as DocumentSnapshot<Map<String, dynamic>>;
       if (authorDoc.exists) {
-        if (doc.data() != null) {
-          Map<String, dynamic>? data = doc.data()!;
-          return Post(
-            id: doc.id,
-            author: User.fromDocument(authorDoc),
-            imageUrl: data['imageUrl'] ?? '',
-            caption: data['caption'] ?? '',
-            likes: (data['likes'] ?? 0).toInt(),
-            date: (data['date'] as Timestamp).toDate(),
-          );
-        }
+        return Post(
+          id: doc.id,
+          author: User.fromDocument(authorDoc),
+          imageUrl: data['imageUrl'] ?? '',
+          caption: data['caption'] ?? '',
+          likes: (data['likes'] ?? 0).toInt(),
+          date: (data['date'] as Timestamp).toDate(),
+        );
       }
     }
     return Post.empty;
   }
+
+  // static Future<Post> fromDocument(
+  //     DocumentSnapshot<Map<String, dynamic>> doc) async {
+  //   final authorRef = doc.get('author') as DocumentReference?;
+  //   if (authorRef != null) {
+  //     final authorDoc =
+  //         await authorRef.get() as DocumentSnapshot<Map<String, dynamic>>;
+  //     if (authorDoc.exists) {
+  //       if (doc.data() != null) {
+  //         Map<String, dynamic>? data = doc.data()!;
+  //         return Post(
+  //           id: doc.id,
+  //           author: User.fromDocument(authorDoc),
+  //           imageUrl: data['imageUrl'] ?? '',
+  //           caption: data['caption'] ?? '',
+  //           likes: (data['likes'] ?? 0).toInt(),
+  //           date: (data['date'] as Timestamp).toDate(),
+  //         );
+  //       }
+  //     }
+  //   }
+  //   return Post.empty;
+  // }
 }
