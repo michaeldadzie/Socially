@@ -20,9 +20,12 @@ class Constants {
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
-        backgroundColor: lightPrimary,
-        elevation: 0,
-        iconTheme: IconThemeData(color: darkPrimary)),
+      backgroundColor: lightPrimary,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: darkPrimary,
+      ),
+    ),
     // brightness: Brightness.light,
     backgroundColor: lightPrimary,
     primaryColor: lightPrimary,
