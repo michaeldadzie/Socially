@@ -21,29 +21,42 @@ class PostView extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed(
-                ProfileScreen.routeName,
-                arguments: ProfileScreenArgs(userId: post.author.id)),
-            child: Row(
-              children: [
-                UserProfileImage(
-                  radius: 18,
-                  profileImageUrl: post.author.profileImageUrl,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    post.author.username,
-                    style: GoogleFonts.lato(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).focusColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.of(context).pushNamed(
+                    ProfileScreen.routeName,
+                    arguments: ProfileScreenArgs(userId: post.author.id)),
+                child: Row(
+                  children: [
+                    UserProfileImage(
+                      radius: 18,
+                      profileImageUrl: post.author.profileImageUrl,
                     ),
-                  ),
+                    const SizedBox(width: 10),
+                    Text(
+                      post.author.username,
+                      style: GoogleFonts.lato(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).focusColor,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  // TODO: Share and report
+                  print('tap');
+                },
+                child: Icon(
+                  Icons.more_horiz,
+                  color: Theme.of(context).focusColor,
+                ),
+              )
+            ],
           ),
         ),
         GestureDetector(
