@@ -56,9 +56,7 @@ class _FeedScreenState extends State<FeedScreen> {
               duration: const Duration(seconds: 1),
               content: Text(
                 'Fetching more posts...',
-                style: GoogleFonts.raleway(
-                  color: Theme.of(context).focusColor,
-                ),
+                style: GoogleFonts.lato(color: Theme.of(context).focusColor),
               ),
             ),
           );
