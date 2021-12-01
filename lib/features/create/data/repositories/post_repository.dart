@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:socially/features/authentication/data/config/paths.dart';
+import 'package:socially/core/config/paths.dart';
 import 'package:socially/features/create/data/models/post_model.dart';
 import 'package:socially/features/create/data/models/comment_model.dart';
 import 'package:socially/features/create/data/repositories/base_post_repository.dart';
