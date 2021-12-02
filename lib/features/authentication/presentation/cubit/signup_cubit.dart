@@ -6,10 +6,10 @@ import 'package:socially/features/authentication/data/repositories/auth_reposito
 part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
-  final AuthRepository? _authRepository;
+  final AuthRepository _authRepository;
   // ignore: invalid_required_positional_param
   SignupCubit({
-    required AuthRepository? authRepository,
+    required AuthRepository authRepository,
   })  : _authRepository = authRepository,
         super(SignupState?.initial());
 
@@ -29,7 +29,7 @@ class SignupCubit extends Cubit<SignupState> {
     if (!state.isFormValid || state.status == SignupStatus.submitting) return;
     emit(state.copyWith(status: SignupStatus.submitting));
     try {
-      await _authRepository?.signUpWithEmailAndPassword(
+      await _authRepository.signUpWithEmailAndPassword(
         username: state.username,
         email: state.email,
         password: state.password,
