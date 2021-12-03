@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:socially/features/authentication/data/config/paths.dart';
+import 'package:socially/core/config/paths.dart';
 import 'package:socially/features/authentication/data/models/failure_model.dart';
-import 'repositories.dart';
+import 'package:socially/features/authentication/data/repositories/base_auth_repository.dart';
 
 class AuthRepository extends BaseAuthRepository {
   final FirebaseFirestore _firebaseFirestore;
@@ -21,13 +20,13 @@ class AuthRepository extends BaseAuthRepository {
 
   @override
   Future<auth.User> signUpWithEmailAndPassword({
-    @required String? username,
-    @required String? email,
-    @required String? password,
+    required String username,
+    required String email,
+    required String password,
   }) async {
     try {
       final credential = await _fireBaseAuth.createUserWithEmailAndPassword(
-          email: email!, password: password!);
+          email: email, password: password);
       final user = credential.user;
       _firebaseFirestore.collection(Paths.users).doc(user!.uid).set({
         'username': username,
@@ -45,13 +44,13 @@ class AuthRepository extends BaseAuthRepository {
 
   @override
   Future<auth.User> logInWithEmailAndPassword({
-    @required String? email,
-    @required String? password,
+    required String email,
+    required String password,
   }) async {
     try {
       final credential = await _fireBaseAuth.signInWithEmailAndPassword(
-        email: email!,
-        password: password!,
+        email: email,
+        password: password,
       );
       return credential.user!;
     } on auth.FirebaseAuthException catch (error) {
