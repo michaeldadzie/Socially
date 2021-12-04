@@ -55,6 +55,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     yield state.copyWith(status: ProfileStatus.loading);
     try {
       final user = await _userRepository.getUserWithId(userId: event.userId);
+
       final isCurrentUser = _authBloc.state.user?.uid == event.userId;
 
       final isFollowing = await _userRepository.isFollowing(
@@ -63,6 +64,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       );
 
       _postsSubscription?.cancel();
+
       _postsSubscription = _postRepository
           .getUserPosts(userId: event.userId)
           .listen((posts) async {
