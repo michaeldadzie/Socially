@@ -4,7 +4,7 @@ abstract class ProfileEvent extends Equatable {
   const ProfileEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ProfileLoadUser extends ProfileEvent {
@@ -13,7 +13,7 @@ class ProfileLoadUser extends ProfileEvent {
   const ProfileLoadUser({required this.userId});
 
   @override
-  List<Object> get props => [userId];
+  List<Object?> get props => [userId];
 }
 
 class ProfileToggleGridView extends ProfileEvent {
@@ -22,7 +22,7 @@ class ProfileToggleGridView extends ProfileEvent {
   const ProfileToggleGridView({required this.isGridView});
 
   @override
-  List<Object> get props => [isGridView];
+  List<Object?> get props => [isGridView];
 }
 
 class ProfileUpdatePosts extends ProfileEvent {
@@ -31,7 +31,7 @@ class ProfileUpdatePosts extends ProfileEvent {
   const ProfileUpdatePosts({required this.posts});
 
   @override
-  List<Object> get props => [posts];
+  List<Object?> get props => [posts];
 }
 
 class ProfileFollowUser extends ProfileEvent {}
