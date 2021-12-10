@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:socially/core/nav/page/bottom_nav_screen.dart';
 import 'package:socially/core/screens/error_screen.dart';
 import 'package:socially/features/authentication/presentation/pages/login_screen.dart';
 import 'package:socially/features/authentication/presentation/pages/signup_screen.dart';
