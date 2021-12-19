@@ -26,7 +26,9 @@ class SplashScreen extends StatelessWidget {
             Navigator.of(context).pushNamed(LoginScreen.routeName);
           } else if (state.satus == AuthStatus.authenticated) {
             // Go to home screen
-            Navigator.of(context).pushNamed(BottomNavScreen.routeName);
+            Future.delayed(const Duration(seconds: 3), () {
+              Navigator.of(context).pushNamed(BottomNavScreen.routeName);
+            });
           }
           print(state);
         },
