@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -117,6 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen>
           backgroundColor: Theme.of(context).primaryColor,
           color: Theme.of(context).focusColor,
           onRefresh: () async {
+            // await Future.delayed(Duration(seconds: 1));
             context.read<ProfileBloc>().add(
                   ProfileLoadUser(userId: state.user.id),
                 );
