@@ -57,6 +57,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final user = await _userRepository.getUserWithId(userId: event.userId);
 
       final isCurrentUser = _authBloc.state.user?.uid == event.userId;
+      
 
       final isFollowing = await _userRepository.isFollowing(
         userId: _authBloc.state.user!.uid,
