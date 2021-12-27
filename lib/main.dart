@@ -58,8 +58,10 @@ class Socially extends StatelessWidget {
           )
         ],
         child: ScreenUtilInit(
-          designSize:
-              Size(MyScreenSizes.screenWidth, MyScreenSizes.screenHeight),
+          designSize: Size(
+            MyScreenSizes.screenWidth,
+            MyScreenSizes.screenHeight,
+          ),
           builder: () {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
