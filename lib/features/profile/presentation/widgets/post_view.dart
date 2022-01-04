@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:socially/features/create/data/models/post_model.dart';
 import 'package:socially/features/profile/presentation/extensions/datetime_extension.dart';
 import 'package:socially/features/profile/presentation/pages/profile_screen.dart';
@@ -47,7 +48,8 @@ class PostView extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  Share.share(post.imageUrl);
                   // TODO: Share and report
                   print('tap');
                 },
