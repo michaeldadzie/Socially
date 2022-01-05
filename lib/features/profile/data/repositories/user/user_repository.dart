@@ -35,12 +35,12 @@ class UserRepository extends BaseUserRepository {
 
   @override
   void followUser({required String userId, required String followUserId}) {
-    // Add followUser to user's userFollowinguserFollowing
+    // Add followUser to user's userFollowing
     _firebaseFirestore
         .collection(Paths.following)
         .doc(userId)
         .collection(Paths.userFollowing)
-        .doc(Paths.userFollowing)
+        .doc(followUserId)
         .set({});
 
     // Add user to followUser's userFollowers
