@@ -30,7 +30,7 @@ void main() async {
 }
 
 class Socially extends StatelessWidget {
-  Socially({Key? key}) : super(key: key);
+ const Socially({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
