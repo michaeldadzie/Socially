@@ -54,7 +54,7 @@ class UserRepository extends BaseUserRepository {
 
   @override
   void unfollowUser({required String userId, required String unfollowUserId}) {
-    // Remove nfollowUser from user's following
+    // Remove followUser from user's following
     _firebaseFirestore
         .collection(Paths.following)
         .doc(userId)
