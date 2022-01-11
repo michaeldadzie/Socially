@@ -101,6 +101,7 @@ class PostRepository extends BasePostRepository {
     String? lastPostId,
   }) async {
     QuerySnapshot postsSnap;
+    
     if (lastPostId == null) {
       postsSnap = await _firebaseFirestore
           .collection(Paths.feeds)
