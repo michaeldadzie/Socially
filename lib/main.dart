@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socially/features/feed/presentation/cubit/liked_post_cubit.dart';
 import 'core/screens/screens.dart';
 import 'core/utils/screen_sizes.dart';
 import 'core/utils/theme.dart';
@@ -30,7 +31,7 @@ void main() async {
 }
 
 class Socially extends StatelessWidget {
- const Socially({Key? key}) : super(key: key);
+  const Socially({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +55,12 @@ class Socially extends StatelessWidget {
           BlocProvider<AuthBloc>(
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider<LikedPostCubit>(
+            create: (context) => LikedPostCubit(
+              postRepository: context.read<PostRepository>(),
+              authBloc: context.read<AuthBloc>(),
             ),
           )
         ],
