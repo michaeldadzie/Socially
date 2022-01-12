@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:socially/core/widgets/error_dialog.dart';
 import 'package:socially/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'package:socially/features/create/data/repositories/post_repository.dart';
+import 'package:socially/features/feed/presentation/cubit/liked_post_cubit.dart';
 import 'package:socially/features/profile/data/repositories/user/user_repository.dart';
 import 'package:socially/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:socially/features/profile/presentation/widgets/post_view.dart';
@@ -28,6 +29,7 @@ class ProfileScreen extends StatefulWidget {
       settings: const RouteSettings(name: routeName),
       builder: (context) => BlocProvider<ProfileBloc>(
         create: (_) => ProfileBloc(
+          likedPostCubit: context.read<LikedPostCubit>(),
           userRepository: context.read<UserRepository>(),
           postRepository: context.read<PostRepository>(),
           authBloc: context.read<AuthBloc>(),
@@ -196,9 +198,24 @@ class _ProfileScreenState extends State<ProfileScreen>
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           final post = state.posts[index];
+                          final likedPostsState =
+                              context.watch<LikedPostCubit>().state;
+                          final isLiked =
+                              likedPostsState.likedPostIds.contains(post.id);
                           return PostView(
+                            onLike: () {
+                              if (isLiked) {
+                                context
+                                    .read<LikedPostCubit>()
+                                    .unlikePost(post: post);
+                              } else {
+                                context
+                                    .read<LikedPostCubit>()
+                                    .likePost(post: post);
+                              }
+                            },
                             post: post,
-                            isLiked: false,
+                            isLiked: isLiked,
                           );
                         },
                         childCount: state.posts.length,
