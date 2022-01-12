@@ -7,6 +7,7 @@ import 'package:socially/features/create/data/repositories/post_repository.dart'
 import 'package:socially/features/create/presentation/cubit/create_post_cubit.dart';
 import 'package:socially/features/create/presentation/pages/create_screen.dart';
 import 'package:socially/features/feed/presentation/bloc/feed_bloc.dart';
+import 'package:socially/features/feed/presentation/cubit/liked_post_cubit.dart';
 import 'package:socially/features/feed/presentation/pages/feed_screen.dart';
 import 'package:socially/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:socially/features/profile/data/repositories/storage/storage_repository.dart';
@@ -36,7 +37,7 @@ class TabNavigator extends StatelessWidget {
       onGenerateInitialRoutes: (_, initialRoute) {
         return [
           MaterialPageRoute(
-            settings: RouteSettings(name: tabNavigatorRoot),
+            settings: const RouteSettings(name: tabNavigatorRoot),
             builder: (context) => routeBuilders![initialRoute]!(context),
           )
         ];
@@ -54,17 +55,18 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.feed:
         return BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
-            postRepository: context.read<PostRepository>(),
-            authBloc: context.read<AuthBloc>(),
-          )..add(FeedFetchPosts()),
-          child: FeedScreen(),
+              postRepository: context.read<PostRepository>(),
+              authBloc: context.read<AuthBloc>(),
+              likedPostCubit: context.read<LikedPostCubit>())
+            ..add(FeedFetchPosts()),
+          child: const FeedScreen(),
         );
       case BottomNavItem.search:
         return BlocProvider<SearchCubit>(
           create: (context) => SearchCubit(
             userRepository: context.read<UserRepository>(),
           ),
-          child: SearchScreen(),
+          child: const SearchScreen(),
         );
       case BottomNavItem.create:
         return BlocProvider<CreatePostCubit>(
@@ -76,16 +78,17 @@ class TabNavigator extends StatelessWidget {
           child: CreateScreen(),
         );
       case BottomNavItem.notifications:
-        return NotificationsScreen();
+        return const NotificationsScreen();
       case BottomNavItem.profile:
         return BlocProvider<ProfileBloc>(
           create: (_) => ProfileBloc(
-            authBloc: context.read<AuthBloc>(),
-            userRepository: context.read<UserRepository>(),
-            postRepository: context.read<PostRepository>(),
-          )..add(ProfileLoadUser(
-              userId: context.read<AuthBloc>().state.user!.uid)),
-          child: ProfileScreen(),
+              authBloc: context.read<AuthBloc>(),
+              userRepository: context.read<UserRepository>(),
+              postRepository: context.read<PostRepository>(),
+              likedPostCubit: context.read<LikedPostCubit>())
+            ..add(ProfileLoadUser(
+                userId: context.read<AuthBloc>().state.user!.uid)),
+          child: const ProfileScreen(),
         );
       default:
         return const Scaffold();
