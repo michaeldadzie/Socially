@@ -6,6 +6,7 @@ import 'package:socially/features/authentication/data/models/failure_model.dart'
 import 'package:socially/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'package:socially/features/create/data/models/post_model.dart';
 import 'package:socially/features/create/data/repositories/post_repository.dart';
+import 'package:socially/features/feed/presentation/cubit/liked_post_cubit.dart';
 import 'package:socially/features/profile/data/models/user_model.dart';
 import 'package:socially/features/profile/data/repositories/user/user_repository.dart';
 
@@ -16,6 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UserRepository _userRepository;
   final PostRepository _postRepository;
   final AuthBloc _authBloc;
+  final LikedPostCubit _likedPostCubit;
 
   StreamSubscription<List<Future<Post>>>? _postsSubscription;
 
@@ -23,9 +25,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required UserRepository userRepository,
     required AuthBloc authBloc,
     required PostRepository postRepository,
+    required LikedPostCubit likedPostCubit,
   })  : _userRepository = userRepository,
         _authBloc = authBloc,
         _postRepository = postRepository,
+        _likedPostCubit = likedPostCubit,
         super(ProfileState.initial());
 
   @override
@@ -57,7 +61,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final user = await _userRepository.getUserWithId(userId: event.userId);
 
       final isCurrentUser = _authBloc.state.user?.uid == event.userId;
-      
 
       final isFollowing = await _userRepository.isFollowing(
         userId: _authBloc.state.user!.uid,
@@ -95,6 +98,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Stream<ProfileState> _mapProfileUpdatePosts(ProfileUpdatePosts event) async* {
     yield state.copyWith(posts: event.posts);
+    final likedPostIds = await _postRepository.getLikedPostIds(
+        userId: _authBloc.state.user!.uid, posts: event.posts);
+    _likedPostCubit.updateLikedPosts(postIds: likedPostIds);
   }
 
   Stream<ProfileState> _mapProfileFollowUserToSate() async* {
