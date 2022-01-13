@@ -4,6 +4,7 @@ import 'package:socially/features/authentication/data/models/failure_model.dart'
 import 'package:socially/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'package:socially/features/create/data/models/post_model.dart';
 import 'package:socially/features/create/data/repositories/post_repository.dart';
+import 'package:socially/features/feed/presentation/cubit/liked_post_cubit.dart';
 
 part 'feed_event.dart';
 part 'feed_state.dart';
@@ -11,12 +12,15 @@ part 'feed_state.dart';
 class FeedBloc extends Bloc<FeedEvent, FeedState> {
   final PostRepository _postRepository;
   final AuthBloc _authBloc;
+  final LikedPostCubit _likedPostCubit;
 
   FeedBloc({
     required PostRepository postRepository,
     required AuthBloc authBloc,
+    required LikedPostCubit likedPostCubit,
   })  : _postRepository = postRepository,
         _authBloc = authBloc,
+        _likedPostCubit = likedPostCubit,
         super(FeedState.initial());
 
   @override
@@ -33,6 +37,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     try {
       final posts =
           await _postRepository.getUserFeed(userId: _authBloc.state.user!.uid);
+      // _likedPostCubit.clearAllLikedPosts();
+      final likedPostIds = await _postRepository.getLikedPostIds(
+          userId: _authBloc.state.user!.uid, posts: posts);
+      _likedPostCubit.updateLikedPosts(postIds: likedPostIds);
       yield state.copyWith(posts: posts, status: FeedStatus.loaded);
       print(posts);
     } catch (err) {
@@ -52,7 +60,12 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         userId: _authBloc.state.user!.uid,
         lastPostId: lastPostId,
       );
+
       final updatedPosts = List<Post>.from(state.posts)..addAll(posts);
+      final likedPostIds = await _postRepository.getLikedPostIds(
+          userId: _authBloc.state.user!.uid, posts: posts);
+      _likedPostCubit.updateLikedPosts(postIds: likedPostIds);
+
       yield state.copyWith(posts: updatedPosts, status: FeedStatus.loaded);
     } catch (err) {
       yield state.copyWith(
