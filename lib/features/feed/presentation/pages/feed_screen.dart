@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socially/core/widgets/error_dialog.dart';
 import 'package:socially/features/feed/presentation/bloc/feed_bloc.dart';
+import 'package:socially/features/feed/presentation/cubit/liked_post_cubit.dart';
 import 'package:socially/features/profile/presentation/widgets/post_view.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -99,7 +100,22 @@ class _FeedScreenState extends State<FeedScreen> {
             itemCount: state.posts.length,
             itemBuilder: (context, index) {
               final post = state.posts[index];
-              return PostView(post: post, isLiked: false);
+              final likedPostsState = context.watch<LikedPostCubit>().state;
+              final isLiked = likedPostsState.likedPostIds.contains(post.id);
+              final recentlyLiked =
+                  likedPostsState.recentlyLikedPostIds.contains(post.id);
+              return PostView(
+                post: post,
+                isLiked: isLiked,
+                recentlyLiked: recentlyLiked,
+                onLike: () {
+                  if (isLiked) {
+                    context.read<LikedPostCubit>().unlikePost(post: post);
+                  } else {
+                    context.read<LikedPostCubit>().likePost(post: post);
+                  }
+                },
+              );
             },
           ),
         );
