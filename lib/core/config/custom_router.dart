@@ -45,7 +45,7 @@ class CustomRouter {
   static Route _errorRoute() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: '/error'),
-      builder: (_) => ErrorScreen(),
+      builder: (_) => const ErrorScreen(),
     );
   }
 }
